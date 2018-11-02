@@ -9,10 +9,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QUrl url = QUrl("ws://192.168.134.123:9090");
-    ui->label->setText(QStringLiteral("Î´Á¬½Ó!"));
+    QUrl url = QUrl("ws://192.168.1.101:9090");
     m_websocket.open(url);
-    qDebug()<<m_websocket.errorString();
+    QString err=m_websocket.errorString();
+    file = new QFile("/home/zzp/test.json");
+    file->open(QIODevice::ReadOnly);
+    if(err!="Unknown error")
+        ui->label->setText(err);
     connect(&m_websocket,SIGNAL(connected()),this,SLOT(onconnected()));
     connect(&m_websocket,SIGNAL(disconnected()),this,SLOT(ondisconnected()));
 //    connect(&m_websocket,SIGNAL(disconnected()),this,SLOT(closeConnection()));
@@ -22,19 +25,30 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
+//{
+//       "op":"publish",
+//       "id":"publish:/cmd_vel:2",
+//       "topic":"/cmd_vel",
+//       "msg":{"linear":{"x":0.1,"y":0,"z":0},
+//       "angular":{"x":0,"y":0,"z":0}},
+//       "latch":false
+// }
 void MainWindow::on_pushButton_clicked()
 {
     QString msg = ui->textEdit->document()->toPlainText();
     m_websocket.sendTextMessage(msg);
+//    QTextStream stream(file);
+//    QString data = stream.readAll();
+//    qDebug()<<data;
+//    m_websocket.sendTextMessage(data);
 }
 
 void MainWindow::onconnected()
 {
-    ui->label->setText(QStringLiteral("Á¬½Ó³É¹¦!"));
+    ui->label->setText(QStringLiteral("è¿žæŽ¥æˆåŠŸ!"));
 }
 
 void MainWindow::ondisconnected()
 {
-    ui->label->setText(QStringLiteral("Î´Á¬½Ó!"));
+    ui->label->setText(QStringLiteral("æœªè¿žæŽ¥!"));
 }
