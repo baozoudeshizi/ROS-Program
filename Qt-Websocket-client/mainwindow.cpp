@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    QUrl url = QUrl("ws://192.168.1.101:9090");
+    ui->textEdit->setFont(QFont("Consolas",18));
+    QUrl url = QUrl("ws://192.168.31.104:9090");
     m_websocket.open(url);
     QString err=m_websocket.errorString();
     file = new QFile("/home/zzp/test.json");
@@ -25,6 +25,15 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+//{
+//    id: "advertise:/cmd_vel:1"
+//    latch: false
+//    op: "advertise"
+//    queue_size: 100
+//    topic: "/cmd_vel"
+//    type: "geometry_msgs/Twist"
+//}
+
 //{
 //       "op":"publish",
 //       "id":"publish:/cmd_vel:2",

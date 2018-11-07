@@ -22,7 +22,7 @@ private:
 };
 
 
-TeleopTurtle::TeleopTurtle(): linear_(1), angular_(2)
+TeleopTurtle::TeleopTurtle(): linear_(6), angular_(7)
 {
   //  initialize some parameters
   nh_.param("axis_linear", linear_, linear_);  
@@ -31,7 +31,7 @@ TeleopTurtle::TeleopTurtle(): linear_(1), angular_(2)
   nh_.param("scale_linear", l_scale_, l_scale_);
 
   // create a publisher that will advertise on the command_velocity topic of the turtle
-  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("turtle1/cmd_vel", 1);
+  vel_pub_ = nh_.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 
   // subscribe to the joystick topic for the input to drive the turtle
   joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 20, &TeleopTurtle::joyCallback, this);
