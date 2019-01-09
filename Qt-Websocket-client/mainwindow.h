@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWebSockets/QtWebSockets>
+#include <QFile>
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +27,7 @@ private:
     Ui::MainWindow *ui;
     QUrl m_url;
     QWebSocket m_websocket;
+    QFile* file;
 };
 
 #endif // MAINWINDOW_H
